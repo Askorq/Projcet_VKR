@@ -122,10 +122,58 @@ nav a:hover {
 #clearTableButton:hover {
     background-color: #c9302c;
 }
-#map {
-    width: 33%;
+#map, #seaMap {
     height: 400px;
+    width: 480px;  /* фиксированная ширина */
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-top: 20px;
+}
+.transport-block {
+    width: 500px;
+    min-width: 500px;
+}
+
+.transport-divider {
+    width: 2px;
+    height: 650px;
+    margin: 0 10px; /* уменьшили отступ между блоками */
+    background: linear-gradient(to bottom, #ccc, #eee);
+    border-radius: 2px;
+}
+.transport-block {
+  width: 100%;
+}
+
+#map,
+#seaMap {
+  height: 400px;
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+iframe {
+  border: none;
+  border-radius: 10px;
+}
+#airMap {
+    height: 400px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+#seaMapLegend p {
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#seaMapLegend span {
+    display: inline-block;
+    width: 20px;
+    height: 10px;
+    border: 1px solid #555;
 }

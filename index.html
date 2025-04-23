@@ -36,38 +36,39 @@
 <section id="inputData">
     <h2>Ввод исходных данных</h2>
     <form id="productForm">
-        <div class="form-group">
-            <label for="productName">Наименование продукта:</label>
-            <input type="text" id="productName" name="productName">
-        </div>
+  <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+    <div class="form-group" style="flex: 1 1 45%;">
+      <label for="productName">Наименование продукта:</label>
+      <input type="text" id="productName" name="productName">
+    </div>
+    <div class="form-group" style="flex: 1 1 45%;">
+      <label for="productWeight">Вес груза (кг):</label>
+      <input type="number" id="productWeight" name="productWeight">
+    </div>
+    <div class="form-group" style="flex: 1 1 45%;">
+      <label for="freezingDegree">Степень заморозки:</label>
+      <select id="freezingDegree" name="freezingDegree">
+        <option value="Свежие">Свежие</option>
+        <option value="Охлажденные">Охлажденные</option>
+        <option value="Глубокая заморозка">Глубокая заморозка</option>
+      </select>
+    </div>
+    <div class="form-group" style="flex: 1 1 45%;">
+      <label for="temperatureMode">Температурный режим перевозки (℃):</label>
+      <input type="text" id="temperatureMode" name="temperatureMode">
+    </div>
+    <div class="form-group" style="flex: 1 1 45%;">
+      <label for="transportTime">Сроки транспортировки (Дней):</label>
+      <input type="number" id="transportTime" name="transportTime">
+    </div>
+    <div class="form-group" style="flex: 1 1 45%;">
+      <label for="coefficient">Коэффициент:</label>
+      <input type="number" id="coefficient" name="coefficient">
+    </div>
+  </div>
+  <button type="submit" id="saveProduct">Сохранить данные о продукте</button>
+</form>
 
-        <div class="form-group">
-            <label for="freezingDegree">Степень заморозки:</label>
-            <select id="freezingDegree" name="freezingDegree">
-                <option value="Глубокая заморозка">Глубокая заморозка</option>
-                <option value="Замороженное">Замороженное</option>
-                <option value="Охлажденное">Охлажденное</option>
-                <option value="Свежее">Свежее</option>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="transportTemp">Температурный режим перевозки:</label>
-            <input type="text" id="transportTemp" name="transportTemp">
-        </div>
-
-        <div class="form-group">
-            <label for="transportDuration">Сроки транспортировки:</label>
-            <input type="text" id="transportDuration" name="transportDuration">
-        </div>
-
-        <div class="form-group">
-            <label for="coefficient">Коэффициент:</label>
-            <input type="text" id="coefficient" name="coefficient">
-        </div>
-
-        <button type="submit">Сохранить данные о продукте</button>
-    </form>
 
     <div class="table-container">
         <table id="productTable">
@@ -76,7 +77,8 @@
                     <th>#</th>
                     <th>Наименование продукта</th>
                     <th>Степень заморозки</th>
-                    <th>Темп. режим перевозки</th>
+                    <th><span title="Температурный">Темпепатурный режим перевозки </span> </th>
+                    <th>Вес груза (кг)</th>
                     <th>Сроки транспортировки</th>
                     <th>Коэффициент</th>
                 </tr>
@@ -91,28 +93,83 @@
 <section id="transportParams">
     <h2>Параметры видов транспорта</h2>
 
+    <!-- Первый ряд: Автомобильный и Морской транспорт -->
+<div style="display: flex; gap: 40px; justify-content: center; margin-bottom: 40px;">
+  <!-- Автомобильный транспорт -->
+  <div class="transport-block" style="flex: 1;">
     <h3>Автомобильный транспорт</h3>
     <form id="carTransportForm">
-        <div class="form-group">
-            <label for="startPoint">Начальный пункт:</label>
-            <input type="text" id="startPoint" name="startPoint">
-        </div>
-
-        <div class="form-group">
-            <label for="endPoint">Конечный пункт:</label>
-            <input type="text" id="endPoint" name="endPoint">
-        </div>
-
-        <button type="button" id="calculateRoute">Рассчитать маршрут</button>
+      <div class="form-group">
+        <label for="startPoint">Начальный пункт:</label>
+        <input type="text" id="startPoint" name="startPoint">
+      </div>
+      <div class="form-group">
+        <label for="endPoint">Конечный пункт:</label>
+        <input type="text" id="endPoint" name="endPoint">
+      </div>
+      <button type="button" id="calculateRoute">Рассчитать маршрут</button>
     </form>
-
     <div id="map"></div>
-
     <div id="routeInfo">
-        <p>Расстояние: <span id="distance"></span></p>
-        <p>Время в пути: <span id="duration"></span></p>
+      <p>Расстояние: <span id="distance"></span></p>
+      <p>Время в пути: <span id="duration"></span></p>
     </div>
-</section>
+  </div>
+
+  <!-- Морской транспорт -->
+  <div class="transport-block" style="flex: 1;">
+    <h3>Морской транспорт</h3>
+    <button id="drawSeaRoute">Показать морские маршруты</button>
+    <div id="seaMap"></div>
+    <div id="seaRouteInfo" style="margin-top: 10px;">
+      <p>Расстояние: <span id="seaDistance">–</span></p>
+      <p>Время в пути: <span id="seaDuration">–</span></p>
+    </div>
+    <div id="seaMapLegend" style="margin-top: 10px; font-size: 14px; color: #333;">
+  <p><span style="display:inline-block;width:20px;height:10px;background:#FF0000;border:1px solid #333;"></span> Северный морской путь</p>
+  <p><span style="display:inline-block;width:20px;height:10px;background:#00FF00;border:1px solid #333;"></span> Путь через Суэцкий канал</p>
+</div>
+  </div>
+</div>
+
+<!-- Второй ряд: Ж/д и Авиа -->
+<div style="display: flex; gap: 40px; justify-content: center;">
+  <!-- ЖД транспорт -->
+  <div style="flex: 1;">
+    <h3>Железнодорожный транспорт</h3>
+    <div style="width: 100%; height: 300px; margin-bottom: 30px;">
+      <div style="margin-bottom: 10px;">
+  <button id="toggleRailRouteBtn">Показать маршрут</button>
+</div>
+<iframe id="railMapFrame" src="poezd_marsh.html" style="width: 100%; height: 100%; border: none; border-radius: 10px;"></iframe>
+<div id="railLegend" style="margin-top: 10px; font-size: 14px; color: #333;">
+  <p><span style="display:inline-block;width:20px;height:10px;background:#0000FF;border:1px solid #333;"></span> Транссибирская магистраль</p>
+</div>
+
+    </div>
+  </div>
+
+  <!-- Авиационный транспорт -->
+  <div style="flex: 1;">
+    <h3>Авиационный транспорт</h3>
+    <form id="airTransportForm">
+  <div class="form-group">
+    <label for="airStartPoint">Начальный пункт:</label>
+    <input type="text" id="airStartPoint" name="airStartPoint" placeholder="Например, Москва">
+  </div>
+  <div class="form-group">
+    <label for="airEndPoint">Конечный пункт:</label>
+    <input type="text" id="airEndPoint" name="airEndPoint" placeholder="Например, Новосибирск">
+  </div>
+  <button type="button" id="drawAirRoute">Построить маршрут</button>
+</form>
+<div id="airMap"></div>
+<div id="airRouteInfo" style="margin-top: 10px;">
+  <p>Расстояние: <span id="airDistance">–</span></p>
+</div>
+  </div>
+</div>
+
 
 <section id="results">
     <h2>Результаты</h2>
@@ -125,5 +182,16 @@
 </section>
 
 <script src="script.js"></script>
+<script>
+  const railBtn = document.getElementById('toggleRailRouteBtn');
+  const railFrame = document.getElementById('railMapFrame');
+  let railRouteVisible = false;
+
+  railBtn.addEventListener('click', () => {
+    railFrame.contentWindow.postMessage('toggleRoute', '*');
+    railRouteVisible = !railRouteVisible;
+    railBtn.textContent = railRouteVisible ? 'Скрыть маршрут' : 'Показать маршрут';
+  });
+</script>
 </body>
 </html>
